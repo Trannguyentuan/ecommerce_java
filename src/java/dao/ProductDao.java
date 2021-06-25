@@ -179,7 +179,29 @@ public class ProductDao implements ProductDaoInterface {
 
         return products;
     }
+    
+    @Override
+    public List<Product> getProductbyIdCategory(int id){
+        List<Product> products = new ArrayList<>();
+        try {
+            this.db.open();
+            String query = String.format(
+                    ""
+                    + "SELECT * FROM `products` WHERE categoryId=%d",id
+            );
 
+            // execute
+            ResultSet rs = this.db.executeQuery(query);
+
+            // get products from result set
+            products = getProductsFromResultSet(rs);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ProductDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            db.close();
+        }
+        return products;
+    }
     @Override
     public boolean createProduct(Product product) {
         int rowsEffected = 0;
