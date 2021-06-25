@@ -27,7 +27,16 @@ public class HomeController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
                 ProductDao pdao=new ProductDao();
 		List<Product> productList = pdao.getMany();
-		request.setAttribute("listProduct", productList);
+                List<Product> probestsell = pdao.getBestSellerProducts();
+                //cái này sắp xết theo category, ông gán cái thẻ category đó bằng số như trong db
+                String cate=request.getParameter("category");//gán bằng số để get id dễ
+                int id=Integer.parseInt(cate);
+                
+                List<Product> productbycate=pdao.getProductbyIdCategory(id);
+                
+		request.setAttribute("listfullProduct", productList);
+                request.setAttribute("listBestSell", probestsell);
+                request.setAttribute("listByCategory", productbycate);
 		request.getRequestDispatcher("jsp/home.jsp").forward(request, response);
 }
 }
