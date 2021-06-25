@@ -5,6 +5,7 @@
  */
 package controller;
 import dao.CategoryDao;
+import dao.OrderDao;
 import dao.ProductDao;
 import java.io.IOException;
 
@@ -21,7 +22,12 @@ import javax.servlet.http.HttpSession;
  */
 import model.User;
 import dao.UserDao;
+import dao.CartDao;
 import java.util.List;
+import model.Category;
+import model.Order;
+import model.Product;
+import model.Cart;
 @WebServlet("/Login")
 public class LoginController extends HttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -49,18 +55,31 @@ public class LoginController extends HttpServlet{
                     {
                         CategoryDao cateDao=new CategoryDao();
                         ProductDao proDao=new ProductDao();
-                        
+                        OrderDao orderDao=new OrderDao();
                         List<User> user=userDao.getMany();
-                        List<Category> cate=ca
-                        req.setAttribute("admin", alertMsg);
+                        List<Category> cate=cateDao.getMany();
+                        List<Product> pro=proDao.getMany();
+                        List<Order> order=orderDao.getMany();
+                        //gui het du lieu cho admin
+                        req.setAttribute("user", user);
+                        req.setAttribute("category", cate);
+                        req.setAttribute("product", pro);
+                        req.setAttribute("order", order);
                         req.getRequestDispatcher("/admin/login.jsp").forward(req, resp);//login admin
                     }
                     else//login la client
                     {
-                        
+                        UserDao uDao=new UserDao();
+                        int id=uDao.getId(username);
+                        User user=uDao.getUserById(id);
+                        CartDao cartDao=new CartDao();
+                        Cart cart =cartDao.getCartbyId(id);
+                        req.setAttribute("user", user);
+                        req.setAttribute("cart", cart);
+                        req.getRequestDispatcher("/jsp/login.jsp").forward(req, resp);
                     }
                 }
-                else
+                else//sai
                 {
                     alertMsg = "Username or password sai!!!";
 	            req.setAttribute("alert", alertMsg);
