@@ -81,6 +81,25 @@ public class CartDao implements CartDaoInterface {
     }
 
     @Override
+    public Cart getCartByUserId(int userId) {
+        List<Cart> carts = new ArrayList<>();
+
+        try {
+            this.db.open();
+
+            String query = String.format("SELECT * FROM carts WHERE userId = %d", userId);
+            ResultSet rs = this.db.executeQuery(query);
+            carts = getCartsFromResultSet(rs);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(CartDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            db.close();
+        }
+
+        return carts.size() > 0 ? carts.get(0) : null;
+    }
+    
+    @Override
     public boolean insertOrUpdateCart(int userId, int productId) {
         boolean result = false;
 
