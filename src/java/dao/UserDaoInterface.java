@@ -25,5 +25,8 @@ public interface UserDaoInterface {
     public boolean checkLogin(String username, String password);
 
     public boolean removeUserbyId(int id);
-     public boolean checkadmin(String username, String password);
+    
+    public boolean checkadmin(String username, String password);
+    
+    public User getUserByUsername(String username);
 }
