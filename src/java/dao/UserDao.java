@@ -269,4 +269,38 @@ public class UserDao implements UserDaoInterface {
 
         return rowsEffected > 0;
     }
+    
+    @Override
+    public User getUserByUsername(String username) {
+        List<User> users = new ArrayList<>();
+
+        try {
+            this.db.open();
+
+            String query = String.format(
+                    ""
+                    + "SELECT                       "
+                    + "     u.*, r.role AS roleName "
+                    + "FROM                         "
+                    + "     users u                 "
+                    + "JOIN                         "
+                    + "     roles r                 "
+                    + "ON                           "
+                    + "     u.roleId = r.id         "
+                    + "WHERE                        "
+                    + "     u.usename = '%s'        "
+                    + "GROUP BY                     "
+                    + "     u.id                    ",
+                    username
+            );
+            ResultSet rs = this.db.executeQuery(query);
+            users = getUsersFromResultSet(rs);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            db.close();
+        }
+
+        return users.size() > 0 ? users.get(0) : null;
+    }
 }
