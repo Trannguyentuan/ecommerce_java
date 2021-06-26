@@ -16,8 +16,10 @@ public interface CartDaoInterface {
 
     public List<Cart> getMany();
 
-    public Cart getCartByUserAndProductId(int userId, int productId);
+    public Cart getCartByUserId(int userId);
 
+    public Cart getCartByUserAndProductId(int userId, int productId);
+            
     public boolean createCart(Cart cart);
 
     public boolean insertOrUpdateCart(int userId, int productId);
