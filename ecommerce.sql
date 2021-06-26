@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 25, 2021 at 04:00 PM
+-- Generation Time: Jun 26, 2021 at 09:43 AM
 -- Server version: 8.0.21
 -- PHP Version: 7.3.21
 
@@ -20,6 +20,23 @@ SET time_zone = "+00:00";
 --
 -- Database: `ecommerce`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `carts`
+--
+
+DROP TABLE IF EXISTS `carts`;
+CREATE TABLE IF NOT EXISTS `carts` (
+  `userId` int NOT NULL,
+  `productId` int NOT NULL,
+  `productImage` text COLLATE utf8_unicode_520_ci,
+  `productName` varchar(200) COLLATE utf8_unicode_520_ci DEFAULT NULL,
+  `quantity` int DEFAULT '1',
+  `subTotal` decimal(10,0) DEFAULT '0',
+  PRIMARY KEY (`productId`,`userId`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_520_ci;
 
 -- --------------------------------------------------------
 
