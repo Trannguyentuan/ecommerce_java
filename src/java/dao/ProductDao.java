@@ -92,7 +92,7 @@ public class ProductDao implements ProductDaoInterface {
                     + "ON"
                     + "     p.categoryId = c.id         "
                     + "WHERE                            "
-                    + "     id = %d                     "
+                    + "     p.id = %d                     "
                     + "GROUP BY                         "
                     + "     p.id                        ",
                     id
