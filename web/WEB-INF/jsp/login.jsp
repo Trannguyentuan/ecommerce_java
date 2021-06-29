@@ -11,7 +11,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
+   <body>
+	<h1> Login </h1>
+    <form action="${pageContext.request.contextPath}/Login" method="POST">
+        <label> Username: </label>
+        <input type="text" name="username"> <br>
+        <label> Password: </label>
+        <input type="password" name="password"> <br>
+        <label>&nbsp; </label>
+        <input type="submit" value="Login">
+        <a href="/Home">ring</a>
+    </form>
+</body>
 </html>
