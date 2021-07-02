@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 26, 2021 at 09:43 AM
+-- Generation Time: Jun 28, 2021 at 06:07 PM
 -- Server version: 8.0.21
 -- PHP Version: 7.3.21
 
@@ -34,9 +34,18 @@ CREATE TABLE IF NOT EXISTS `carts` (
   `productImage` text COLLATE utf8_unicode_520_ci,
   `productName` varchar(200) COLLATE utf8_unicode_520_ci DEFAULT NULL,
   `quantity` int DEFAULT '1',
+  `discountPercent` decimal(10,0) DEFAULT '0',
   `subTotal` decimal(10,0) DEFAULT '0',
   PRIMARY KEY (`productId`,`userId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_520_ci;
+
+--
+-- Dumping data for table `carts`
+--
+
+INSERT INTO `carts` (`userId`, `productId`, `productImage`, `productName`, `quantity`, `discountPercent`, `subTotal`) VALUES
+(2, 3, '68172071_1016276_SV_1.jpg', 'Tiffany T T1 Ring', 2, '10', '6840'),
+(2, 2, '67796489_1008969_ED.jpg', 'T1 Ring in Rose Gold, 4.5 mm', 1, '0', '2100');
 
 -- --------------------------------------------------------
 
@@ -81,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `isFinished` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`)
-) ENGINE=MyISAM AUTO_INCREMENT=2188 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_520_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2189 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_520_ci;
 
 --
 -- Dumping data for table `orders`
@@ -91,7 +100,8 @@ INSERT INTO `orders` (`id`, `userId`, `description`, `address`, `phone`, `total`
 (2181, 2, 'ship nhanh nhanh dum em cuoi chong anh oi', '225 Nguyen Van Cu, Q5, HCMC', '0987654312', '3800.00', '2021-06-24 15:33:37', 1),
 (2182, 3, 'ship vao buoi sang nha ban', '69 Nguyen Thi Minh Khai, HCMC', '0843223860', '1700.00', '2021-06-24 15:33:37', 1),
 (2186, 2, NULL, '225 Nguyen Van Cu, Q5, HCMC', '0987654312', '860000.00', '2021-06-25 13:23:39', 1),
-(2187, 0, NULL, NULL, NULL, '0.00', '2021-06-25 13:23:47', 0);
+(2187, 0, NULL, NULL, NULL, '0.00', '2021-06-25 13:23:47', 0),
+(2188, 2, 'no des', 'HCMC', '', '8940.00', '2021-06-29 01:05:50', 0);
 
 -- --------------------------------------------------------
 
@@ -117,7 +127,9 @@ CREATE TABLE IF NOT EXISTS `order_details` (
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`, `discountPercent`, `subTotal`) VALUES
 (2186, 20, 2, '0.0', '86000.00'),
 (2182, 1, 1, '0.0', '1700.00'),
-(2181, 3, 1, '0.0', '3800.00');
+(2181, 3, 1, '0.0', '3800.00'),
+(2188, 3, 2, '10.0', '6840.00'),
+(2188, 2, 1, '0.0', '2100.00');
 
 -- --------------------------------------------------------
 
